@@ -1,5 +1,5 @@
 #
-# system.prop for olympus
+# system.prop for sunfire
 #
 ro.sf.lcd_density=240
 dalvik.vm.heapsize=42m
@@ -12,7 +12,7 @@ persist.ril.mux.ttydevice=/dev/ttyHS3
 ro.telephony.call_ring.multiple=false
 ro.telephony.call_ring.delay=500
 persist.ril.modem.ttydevice=/dev/ttySPI0
-persist.ril.modem.mode=2
+persist.ril.modem.mode=1
 persist.ril.features=0x24
 persist.ril.mux.retries=500
 persist.ril.mux.sleep=2
@@ -69,5 +69,5 @@ persist.tegra.nvlog.level=4
 #persist.tegra.nvlog.14.level=5
 
 # DRM
-persist.tegra.drmlib.asfdrm=libnvdrm.so
-Drmdll.asfdrm=libnvdrm.so
+#persist.tegra.drmlib.asfdrm=libnvdrm.so
+#Drmdll.asfdrm=libnvdrm.so

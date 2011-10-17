@@ -19,6 +19,8 @@ on fs
     mount ext3 /dev/block/mmcblk0p13 /osh nodev noatime nodiratime wait barrier=1 noauto_da_alloc
 
 
+    chmod 0755 /system/etc/12m_files_copy.sh
+
 on post-fs
     # once everything is setup, no need to modify /
     mkdir /mnt/usbdisk_1.0 0000 system system
@@ -59,10 +61,10 @@ on post-fs
 
     # Same reason as /data above
     chown system cache /cache
-    chmod 0770 /cache
+    chmod 0771 /cache
 
     chown system misc /misc
-    chmod 0770 /misc
+    chmod 0771 /misc
 
     # This may have been created by the recovery system with odd permissions
     chown system cache /cache/recovery
@@ -104,6 +106,9 @@ on boot
 # set RLIMIT_NOFILE to allow maximum num of file open to be 2048
 #    setrlimit 7 2048 2048
 
+
+# Enable ADB
+write /dev/usb_device_mode msc_adb
 
 #chown chmod disable_charging
 ##why would we want to disable charging?
@@ -283,13 +288,13 @@ on boot
     chmod 2770 /data/tpapi/etc
     chmod 2770 /data/tpapi/etc/tpa
     chmod 2770 /data/tpapi/etc/tpa/persistent
-    chown mot_tpapi mot_tpapi /data/tpapi
-    chown mot_tpapi mot_tpapi /data/tpapi/etc
-    chown mot_tpapi mot_tpapi /data/tpapi/etc/tpa
-    chown mot_tpapi mot_tpapi /data/tpapi/etc/tpa/persistent
+    chown system system /data/tpapi
+    chown system system /data/tpapi/etc
+    chown system system /data/tpapi/etc/tpa
+    chown system system /data/tpapi/etc/tpa/persistent
 
     chmod 0660 /dev/nvaes
-    chown mot_tpapi mot_tpapi /dev/nvaes
+    chown system system /dev/nvaes
 
 # for feature 33302 device encryption
     mkdir /data/emt
@@ -346,7 +351,7 @@ on boot
 
     mkdir /data/tombstones
     chmod 2775 /data/tombstones
-    chown system mot_tombstone  /data/tombstones
+    chown system system  /data/tombstones
 
     mkdir /data/anr
     chmod 0777 /data/anr
@@ -578,9 +583,9 @@ service akmd2 /system/bin/akmd2
 
 service secclkd /system/bin/secclkd
     class post-zygote_services
-    socket secclk_socket stream 660 mot_secclkd mot_secclkd
+    socket secclk_socket stream 660 system system
     user system
-    group system radio mot_sec_rtc mot_tpapi
+    group system radio system
     oneshot
 
 on property:persist.service.adb.enable=1
@@ -654,6 +659,7 @@ service map /system/bin/sdptool add --channel=20 MAP
 #on property:sys.mot.encrypt.test=1
 #    exec /system/bin/encryption_test
 #    exec /system/bin/setprop sys.mot.encrypt.test ""
+
 # For CDMA
 
 on device-added-/dev/ttyHS3

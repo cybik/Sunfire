@@ -25,6 +25,13 @@ PRODUCT_COPY_FILES += \
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 
+
+# Telephony property for CDMA
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.ril.ntmodeglobal=true \
+    ro.cdma.home.operator.numeric=310120 \
+    ro.cdma.home.operator.alpha=Sprint
+
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
@@ -47,16 +54,19 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
 
-DEVICE_PACKAGE_OVERLAYS += device/motorola/sunfire/overlay
-
-
 # Board-specific init
 PRODUCT_COPY_FILES += \
     device/motorola/sunfire/config/vold.fstab:system/etc/vold.fstab \
-#    device/motorola/sunfire/init.vsnet:system/bin/init.vsnet \
     device/motorola/sunfire/scripts/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh \
     device/motorola/sunfire/config/media_profiles.xml:system/etc/media_profiles.xml \
     device/motorola/sunfire/config/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
+
+# Digitizer files
+# Pulled from http://forum.xda-developers.com/showthread.php?t=1238306
+PRODUCT_COPY_FILES += \
+    device/motorola/sunfire/config/touchpad/20/touchpad.cfg:system/etc/touchpad/20/touchpad.cfg \
+    device/motorola/sunfire/config/touchpad/21/touchpad.cfg:system/etc/touchpad/21/touchpad.cfg \
+    device/motorola/sunfire/config/touchpad/22/touchpad.cfg:system/etc/touchpad/22/touchpad.cfg
 
 #keyboard files
 PRODUCT_COPY_FILES += \
@@ -74,6 +84,7 @@ PRODUCT_COPY_FILES += \
     device/motorola/sunfire/keychars/qwerty.kcm.bin:system/usr/keychars/qwerty.kcm.bin \
     device/motorola/sunfire/keychars/qwerty2.kcm.bin:system/usr/keychars/qwerty2.kcm.bin \
     device/motorola/sunfire/keychars/Motorola_Bluetooth_Wireless_Keyboard.kcm.bin:system/usr/keychars/Motorola_Bluetooth_Wireless_Keyboard.kcm.bin
+
 # Permission files
 PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
@@ -90,8 +101,13 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
 
+DEVICE_PACKAGE_OVERLAYS += device/motorola/sunfire/overlay
+
+$(call inherit-product, build/target/product/full_base.mk)
+
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
 PRODUCT_NAME := generic_sunfire
 PRODUCT_DEVICE := sunfire
 PRODUCT_MODEL := MB855
+PRODUCT_BRAND := sprint
