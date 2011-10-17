@@ -24,12 +24,17 @@ mkdir -p ../../../vendor/$VENDOR/$DEVICE/proprietary/bin
 mkdir -p ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/firmware
 mkdir -p ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wl
 mkdir -p ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wifi
+mkdir -p ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax
+mkdir -p ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax/certs
+mkdir -p ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax/mfg
 mkdir -p ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/ppp/peers
 mkdir -p ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/touchpad/20
 mkdir -p ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/touchpad/21
 mkdir -p ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/touchpad/22
 mkdir -p ../../../vendor/$VENDOR/$DEVICE/proprietary/lib/egl
 mkdir -p ../../../vendor/$VENDOR/$DEVICE/proprietary/lib/hw
+
+
 
 # System Libraries
 adb pull /system/lib/libaudio.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib
@@ -69,6 +74,11 @@ adb pull /system/bin/akmd2 ../../../vendor/$VENDOR/$DEVICE/proprietary/bin
 adb pull /system/bin/whisperd ../../../vendor/$VENDOR/$DEVICE/proprietary/bin
 adb pull /system/bin/memtest_mode ../../../vendor/$VENDOR/$DEVICE/proprietary/bin
 
+adb pull /system/etc/12m_files_copy.sh ../../../vendor/$VENDOR/$DEVICE/proprietary/etc
+adb pull /system/bin/slateipcd ../../../vendor/$VENDOR/$DEVICE/proprietary/bin
+adb pull /system/bin/tcmd ../../../vendor/$VENDOR/$DEVICE/proprietary/bin
+adb pull /system/bin/vpnclientpm ../../../vendor/$VENDOR/$DEVICE/proprietary/bin
+
 # Opencore configuration and libraries
 adb pull /system/etc/pvplayer.cfg ../../../vendor/$VENDOR/$DEVICE/proprietary/etc
 adb pull /system/lib/libopencore_author.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib
@@ -87,15 +97,15 @@ adb pull /system/bin/omx_tests ../../../vendor/$VENDOR/$DEVICE/proprietary/bin
 adb pull /system/bin/omx_tests ../../../vendor/$VENDOR/$DEVICE/proprietary/bin
 
 # OMX AV encoding and decoding
-adb pull /system/lib/libnvomx.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib #nvidia
-adb pull /system/lib/libnvomxilclient.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib #nvidia
+adb pull /system/lib/libnvomx.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib
+adb pull /system/lib/libnvomxilclient.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib
 adb pull /system/lib/libomx_aacdec_sharedlibrary.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib
-adb pull /system/lib/libomx_amrenc_sharedlibrary.so ../../../vendor/$VENDOR/$DEVICE/propriet
+adb pull /system/lib/libomx_amrenc_sharedlibrary.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib
 adb pull /system/lib/libomx_amrdec_sharedlibrary.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib
 adb pull /system/lib/libomx_avcdec_sharedlibrary.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib
 adb pull /system/lib/libomx_m4vdec_sharedlibrary.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib
 adb pull /system/lib/libomx_mp3dec_sharedlibrary.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib
-adb pull /system/lib/libomx_sharedlibrary.so ../../../vendor/$VENDOR/$DEVICE/proprietary/libary/lib
+adb pull /system/lib/libomx_sharedlibrary.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib
 
 # nVidia Libraries
 adb pull /system/lib/libnvddk_2d.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib
@@ -176,10 +186,11 @@ adb pull /system/bin/nvrm_avp.axf ../../../vendor/$VENDOR/$DEVICE/proprietary/bi
 adb pull /system/bin/nvrm_daemon ../../../vendor/$VENDOR/$DEVICE/proprietary/bin
 adb pull /system/bin/tegrastats ../../../vendor/$VENDOR/$DEVICE/proprietary/bin
 
-# nVidia EGL libraries
+# nVidia EGL libraries and config
 adb pull /system/lib/egl/libEGL_tegra.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib/egl
 adb pull /system/lib/egl/libGLESv1_CM_tegra.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib/egl
 adb pull /system/lib/egl/libGLESv2_tegra.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib/egl
+adb pull /system/lib/egl/egl.cfg ./config/egl.cfg
 
 # Broadcom userland components
 adb pull /system/etc/BCM4329B1_002.002.023.0757.0782.hcd ../../../vendor/$VENDOR/$DEVICE/proprietary/etc
@@ -209,7 +220,24 @@ adb pull /system/bin/testpppd ../../../vendor/$VENDOR/$DEVICE/proprietary/bin
 adb pull /system/lib/libstagefrighthw.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib
 
 # WiMax
-adb pull /system/etc/wimax ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax
+adb pull /system/etc/wimax/RemoteProxy.cfg ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax
+adb pull /system/etc/wimax/macxvi.cfg ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax
+adb pull /system/etc/wimax/macxvi350.bin ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax
+adb pull /system/etc/wimax/wimax_oma_dm.db ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax
+adb pull /system/etc/wimax/wimaxd.conf ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax
+adb pull /system/etc/wimax/certs/443b9c9f.0 ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax/certs
+adb pull /system/etc/wimax/certs/4ef3ec0e.0 ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax/certs
+adb pull /system/etc/wimax/certs/51023c8f.0 ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax/certs
+adb pull /system/etc/wimax/certs/Commercial_device.pem ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax/certs
+adb pull /system/etc/wimax/certs/Commercial_prv_plain_key.pem ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax/certs
+adb pull /system/etc/wimax/certs/TestCA.pem ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax/certs
+adb pull /system/etc/wimax/certs/e1c07118.0 ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax/certs
+adb pull /system/etc/wimax/certs/wimax_server_root.pem ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax/certs
+adb pull /system/etc/wimax/certs/wimax_server_root_ca1.pem ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax/certs
+adb pull /system/etc/wimax/certs/wimax_server_root_ca2.pem ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax/certs
+adb pull /system/etc/wimax/certs/wimax_server_root_ca3.pem ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax/certs
+adb pull /system/etc/wimax/mfg/macxvi.cfg ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax/mfg
+adb pull /system/etc/wimax/mfg/macxvi350.bin ../../../vendor/$VENDOR/$DEVICE/proprietary/etc/wimax/mfg
 adb pull /system/bin/wimaxc ../../../vendor/$VENDOR/$DEVICE/proprietary/bin
 adb pull /system/bin/wimaxd ../../../vendor/$VENDOR/$DEVICE/proprietary/bin
 adb pull /system/bin/wimax_test.sh ../../../vendor/$VENDOR/$DEVICE/proprietary/bin
