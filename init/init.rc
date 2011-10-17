@@ -352,7 +352,7 @@ on boot
     chmod 0777 /data/anr
     chown system system /data/anr
 
-    # Required for copying 12M/Batch files to Olympus
+    # Required for copying 12M/Batch files to Olympus/Photon
     mkdir /system/local 0771 system shell
     mkdir /system/local/12m 0771 system shell
     mkdir /system/local/12m/batch 0771 system shell
