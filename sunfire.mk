@@ -4,7 +4,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 
-## (1) First, the most specific values, i.e. the aspects that are specific to GSM
+## (1) First, the most specific values, i.e. the aspects that are specific to this phone
 PRODUCT_COPY_FILES += \
     device/motorola/sunfire/init.sunfire.rc:root/init.sunfire.rc \
     device/motorola/sunfire/ueventd.sunfire.rc:root/ueventd.sunfire.rc
@@ -30,7 +30,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.ntmodeglobal=true \
     ro.cdma.home.operator.numeric=310120 \
-    ro.cdma.home.operator.alpha=Sprint
+    ro.cdma.home.operator.alpha=Sprint \
+    ro.cdma.homesystem=64,65,76,77,78,79,80,81,82,83 \
+    ro.cdma.otaspnumschema=SELC,1,80,99 \
+    ro.HorizontalVVM=false
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
@@ -53,6 +56,17 @@ endif
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
+
+
+$(call inherit-product, build/target/product/full_base.mk)
+
+
+PRODUCT_PACKAGES += \
+	Usb \
+	FM \
+	Torch
+
+DEVICE_PACKAGE_OVERLAYS += device/motorola/sunfire/overlay
 
 # Board-specific init
 PRODUCT_COPY_FILES += \
@@ -100,10 +114,6 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
-
-DEVICE_PACKAGE_OVERLAYS += device/motorola/sunfire/overlay
-
-$(call inherit-product, build/target/product/full_base.mk)
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 

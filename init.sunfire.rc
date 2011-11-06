@@ -33,6 +33,9 @@ on post-fs
     mkdir /mnt/usbdisk_1.7 0000 system system
     mount rootfs rootfs / ro remount
 
+    # usbd permissions
+    mkdir /data/usbd 0777 system system
+
     # We chown/chmod /data again so because mount is run as root + defaults
     chown system system /data
     chmod 0771 /data
@@ -357,7 +360,7 @@ on boot
     chmod 0777 /data/anr
     chown system system /data/anr
 
-    # Required for copying 12M/Batch files to Olympus
+    # Required for copying 12M/Batch files to Sunfire
     mkdir /system/local 0771 system shell
     mkdir /system/local/12m 0771 system shell
     mkdir /system/local/12m/batch 0771 system shell
@@ -548,12 +551,11 @@ service nvrm_daemon /system/bin/logwrapper /system/bin/nvrm_daemon
     user root
     onrestart restart servicemanager
 
-service bt_start /system/bin/bt_init /system/etc/bt_init.config
+# /system/etc/bt_init.config
+service bt_start /system/bin/bt_init_wrapper.sh
     user bluetooth
     group bluetooth net_bt_admin net_raw net_admin misc
-    disabled
     oneshot
-
 
 service bt_stop /system/bin/bt_init -stop
     user bluetooth
@@ -634,6 +636,13 @@ service map /system/bin/sdptool add --channel=20 MAP
     disabled
     oneshot
 
+
+# Bluetooth service start
+service hciattach /system/bin/hciattach_wrapper.sh
+    user bluetooth
+    group bluetooth net_bt_admin
+    oneshot
+    disabled
 
 # The following services are added by moto
 
@@ -793,6 +802,7 @@ service gadget-qbp-modem /system/bin/tty2ttyd /dev/ttyUSB4 /dev/ttyGS2 0 1024
 #    user system
 #    group bluetooth net_bt_admin net_raw net_admin misc
 #    disabled
+
 
 #Enable DUN and PAN support
 service dund_dialup /system/bin/dund --listen --channel=6 --nodetach --dialup

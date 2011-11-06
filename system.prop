@@ -5,20 +5,58 @@ ro.sf.lcd_density=240
 dalvik.vm.heapsize=42m
 
 #RIL
-ro.telephony.ril_class=mototegra
+ro.telephony.ril_class=mototegraworld
 rild.libpath=/system/lib/libmoto_ril.so
-persist.ril.mux.noofchannels=9
 persist.ril.mux.ttydevice=/dev/ttyHS3
 ro.telephony.call_ring.multiple=false
 ro.telephony.call_ring.delay=500
 persist.ril.modem.ttydevice=/dev/ttySPI0
 persist.ril.modem.mode=1
-persist.ril.features=0x24
 persist.ril.mux.retries=500
 persist.ril.mux.sleep=2
 ro.kernel.android.ril=yes
 persist.ril.pppd.start.fail.max=16
 mobiledata.interfaces=ppp0
+
+# From Motorola's own.
+persist.ril.mux.noofchannels=10
+persist.ril.features=0x0C
+
+# From MOTO
+# Feature 33857 support DualMode switch, UMTS/CDMA
+# This does not apply to Etna as it is not a Global phone.
+# IKXETNA-337 turned off this flag.
+# Enabling the flag for sunfire.
+ro.mot.FTR.33857=true
+
+# RIL hardcodes imported from Motorola's own
+ro.mot.ril.danlist=611,*611,#611
+persist.ril.ecclist=911,*911,#911
+
+# CDMA Carrier support - Native carrier is Sprint
+#ro.cdma.homesystem=64,65,76,77,78,79,80,81,82,83
+#ro.cdma.otaspnumschema=SELC,1,80,99
+persist.radio.cdma.min=0
+#ro.cdma.home.operator.numeric=310120
+#ro.cdma.home.operator.alpha=Sprint
+
+# ERI feature
+# 0 OFF
+# 1 ON
+ro.mot.eri=1
+
+# VVM is not bundled. Need to get it from the market!
+ro.HorizontalVVM=false
+
+#BEGIN Motorola, 30Jan2011, w19837, IKSUNFIRE-215, Feature ID: 35761.
+#[sprint tv transport protocol support]
+sprint.mm.http.proxy = pd.vog.sprintpcs.com
+sprint.mm.http.port = 8085
+sprint.mm.rtsp.proxy = rtsp.vog.sprintpcs.com
+sprint.mm.rtsp.port = 554
+sprint.mm.network.type = unknow
+sprint.mm.nai = unknown
+#END IKSUNFIRE-215
 
 #Define TCP buffer sizes for various networks
 #ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,

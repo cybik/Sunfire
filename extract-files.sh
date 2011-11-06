@@ -214,7 +214,7 @@ adb pull /system/lib/libpppd_plugin-ril.so ../../../vendor/$VENDOR/$DEVICE/propr
 adb pull /system/lib/libpppd_plugin.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib
 adb pull /system/bin/pppd-ril ../../../vendor/$VENDOR/$DEVICE/proprietary/bin
 adb pull /system/bin/pppd ../../../vendor/$VENDOR/$DEVICE/proprietary/bin
-adb pull /system/bin/testpppd ../../../vendor/$VENDOR/$DEVICE/proprietary/bin	
+adb pull /system/bin/testpppd ../../../vendor/$VENDOR/$DEVICE/proprietary/bin
 
 # Stage Fright
 adb pull /system/lib/libstagefrighthw.so ../../../vendor/$VENDOR/$DEVICE/proprietary/lib
