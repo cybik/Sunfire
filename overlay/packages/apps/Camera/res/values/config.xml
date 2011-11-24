@@ -25,4 +25,7 @@
 
 	<!-- High Framerate 1080p for Nvidia Cameras -->
 	<bool name="supportsNvHighBitrateFullHD">true</bool>
+
+	<!-- The Photon has a one-stage-only camera button -->
+	<bool name="isOneStageButton">true</bool>
 </resources>

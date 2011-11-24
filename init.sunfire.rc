@@ -8,11 +8,6 @@ on init
 
 on fs
 # mount mtd partitions
-    # Mount /system rw first to give the filesystem a chance to save a checkpoint
-#    mount ext3 /dev/block/mmcblk0p12 /system noatime nodiratime wait ro barrier=1
-#    mount ext3 /dev/block/mmcblk0p16 /data nosuid nodev noatime nodiratime wait barrier=1
-#    mount ext3 /dev/block/mmcblk0p15 /cache nosuid nodev noatime nodiratime wait barrier=1
-
     mount ext4 /dev/block/mmcblk0p12 /system noatime nodiratime wait ro barrier=1
     mount ext4 /dev/block/mmcblk0p16 /data nosuid nodev noatime nodiratime wait barrier=1 noauto_da_alloc
     mount ext4 /dev/block/mmcblk0p15 /cache nosuid nodev noatime nodiratime wait barrier=1 noauto_da_alloc
@@ -198,6 +193,7 @@ service slateipcd /system/bin/slateipcd
 
 on boot
     # nvrm permissions
+    chown system system /dev/nvrm
     chmod 666 /dev/nvrm
 
     # knvrm permissions
@@ -525,6 +521,8 @@ on property:tcmd.ctl_supplicant="stop"
 
 on property:sys.chargeonly.mode=1
     class_start pre-zygote_services
+    class_stop post-zygote_services
+    stop zygote
     exec /system/bin/charge_only_mode
 
 # Moto safe power down
