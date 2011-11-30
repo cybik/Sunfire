@@ -410,7 +410,7 @@ dep: $(foreach file,$(CFILES),.$(file).depend)
 ifeq ($(BCM_KVER), 2.6)
 modules: $(OFILES)
 	test -r ./Makefile || ln -s $(SRCBASE)/dhd/linux/makefile.26 ./Makefile
-	$(MAKE) -C $(LINUXBUILDDIR)/tegra M=$(shell pwd) $(if $(VERBOSE),V=1) ARCH=arm modules
+	$(MAKE) -C $(LINUXBUILDDIR)/3-tegra-atrix-gingerbread M=$(shell pwd) $(if $(VERBOSE),V=1) ARCH=arm modules
 else
 modules: $(MODULES)
 endif
