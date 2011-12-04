@@ -38,9 +38,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
-# sunfire uses high-density artwork where available
-PRODUCT_LOCALES += hdpi
-
 # copy all kernel modules under the "modules" directory to system/lib/modules
 PRODUCT_COPY_FILES += $(shell \
     find device/motorola/sunfire/modules -name '*.ko' \
@@ -60,6 +57,8 @@ PRODUCT_COPY_FILES += \
 
 $(call inherit-product, build/target/product/full_base.mk)
 
+# sunfire uses high-density artwork where available
+PRODUCT_LOCALES += hdpi
 
 PRODUCT_PACKAGES += \
 	Usb \
