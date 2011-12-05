@@ -63,6 +63,7 @@ PRODUCT_LOCALES += hdpi
 PRODUCT_PACKAGES += \
 	Usb \
 	FM \
+	DockAudio \
 	Torch
 
 DEVICE_PACKAGE_OVERLAYS += device/motorola/sunfire/overlay
