@@ -1,3 +1,5 @@
 *.img
 kang
 motodoc
+modules_orig
+kernel.updated
